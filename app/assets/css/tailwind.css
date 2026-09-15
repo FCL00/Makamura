@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+  --cream: #fff9f0;
+  --charcoal: #25221f;
+  --tomato: #c94c3d;
+  --butter: #f2c94c;
+  --peach: #fce5d8;
+  --sage: #a8b89a;
+  --white: #ffffff;
+  --stone: #6e6860;
+  --line: #e8ded1;
+  --herb: #16a085;
+}
+
+@theme {
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-tomato: var(--tomato);
+  --color-butter: var(--butter);
+  --color-peach: var(--peach);
+  --color-herb: var(--herb);
+  --color-sage: var(--sage);
+  --color-white: var(--white);
+  --color-stone: var(--stone);
+  --color-line: var(--line);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility display-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .display-heading {
+    text-align: center;
+  }
+}
+
+/* Smaller display treatment for section headings, same voice as the hero */
+@utility section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+/* Hand-drawn-feel underline/circle accents used sparingly as the page's one
+   recurring "bold" motif -- see HeroSection + MenuSection category pills */
+/* @utility marker-circle {
+  position: relative;
+}
+@utility marker-circle::after {
+  content: "";
+  position: absolute;
+  inset: -0.15em -0.2em;
+  border: 3px solid currentColor;
+  border-radius: 50% 48% 52% 49% / 52% 50% 48% 51%;
+  z-index: -1;
+} */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible focus ring, kept on-brand instead of the browser default blue */
+:focus-visible {
+  /* outline: 2px solid var(--color-tomato);
+  outline-offset: 3px; */
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+@utility green-gradient {
+  background: linear-gradient(135deg, #16a085, #0e7c66);
+}
+
+@utility butter-gradient {
+  background: linear-gradient(135deg, #f2a93b, #e0851e);
+}
+
+@utility tomato-gradient {
+  background: linear-gradient(135deg, #f25c54, #d8443d);
+}
