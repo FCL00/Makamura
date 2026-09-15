@@ -16,7 +16,7 @@
           Started with one fryer and a bad idea for a sauce
         </h2>
         <p class="mt-5 max-w-xl text-stone leading-relaxed">
-          Dopamine started as a weekend pop-up testing twelve sauces on
+          Makamura started as a weekend pop-up testing twelve sauces on
           whoever walked by. The honey butter sold out in an hour. Three
           years later, same fryer, same recipe book, now with a roof over
           it.

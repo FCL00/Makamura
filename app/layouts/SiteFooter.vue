@@ -9,7 +9,7 @@ const columns = [
     links: ['Locations', 'Hours', 'Catering'],
   },
   {
-    title: 'Dopamine',
+    title: 'Makamura',
     links: ['Our story', 'Careers', 'Contact'],
   },
 ]
