@@ -1,7 +1,5 @@
 <template>
   <article
-    v-for="item in filteredItems"
-    :key="item.id"
     class="relative group flex flex-col overflow-hidden rounded-2xl border border-line bg-cream transition-shadow hover:shadow-[0_12px_28px_-16px_rgba(37,34,31,0.25)]"
   >
     <div class="aspect-4/3 bg-peach relative">
@@ -48,10 +46,10 @@
       </p>
       <div class="flex justify-end items-end h-full">
         <button
-          class="flex gap-2 cursor-pointer text-xs bg-herb text-cream rounded-sm p-2"
+          class="flex gap-2 cursor-pointer text-xs bg-charcoal text-cream rounded-sm p-2"
           @click="handleAddOrder(item.id)"
         >
-          <span>Add to Order</span>
+          <span>Add to Basket</span>
         </button>
       </div>
     </div>
@@ -62,12 +60,13 @@
 import type { Menu } from '~/types/menu'
 
 type FoodCardProps = {
-  filteredItems:  Menu[]
+  item:  Menu
 }
 
 type FoodCardEmits = {
   add: [id: string],
 }
+
 
 const emit = defineEmits<FoodCardEmits>()
 const props = defineProps<FoodCardProps>()
@@ -78,5 +77,3 @@ const handleAddOrder = (id: string) => {
 
 
 </script>
-
-<style></style>
