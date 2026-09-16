@@ -12,11 +12,11 @@ const links = [
 
 <template>
   <header class="sticky top-0 z-40 border-b border-line bg-cream/90 backdrop-blur">
-    <ActionBar/>
+    <!-- <ActionBar/> -->
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-      <a href="#top" class="font-display text-xl font-extrabold tracking-tight text-charcoal">
+      <NuxtLink href="#top" class="font-display text-xl font-extrabold tracking-tight text-charcoal">
         Maka<span class="text-tomato">Mura</span>
-      </a>
+      </NuxtLink>
 
       <nav class="hidden items-center gap-8 md:flex">
         <a
@@ -30,12 +30,12 @@ const links = [
       </nav>
 
       <div class="hidden md:block">
-        <a
+        <NuxtLink
           href="#order"
           class="rounded-full bg-charcoal px-5 py-2.5 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
         >
           Orders
-        </a>
+        </NuxtLink>
       </div>
 
       <button
@@ -56,7 +56,7 @@ const links = [
 
     <div v-if="isOpen" class="border-t border-line px-6 py-4 md:hidden">
       <nav class="flex flex-col gap-4">
-        <a
+        <NuxtLink
           v-for="link in links"
           :key="link.href"
           :href="link.href"
@@ -64,14 +64,14 @@ const links = [
           @click="isOpen = false"
         >
           {{ link.label }}
-        </a>
-        <a
+        </NuxtLink>
+        <NuxtLink
           href="#order"
           class="mt-2 rounded-full bg-charcoal px-5 py-2.5 text-center text-sm font-semibold text-cream"
           @click="isOpen = false"
         >
           Orders
-        </a>
+        </NuxtLink>
       </nav>
     </div>
   </header>
