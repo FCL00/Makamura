@@ -27,13 +27,13 @@
             @update:selectedAddOn="updateSelectedAddOns"
           />
         </DialogBody>
-        <DialogFooter>
+        <DialogFooter class="flex flex-col md:flex-row">
           <NumberFieldRoot
             :min="1"
             :max="20"
             id="quantity"
             :default-value="1"
-            class="flex"
+            class="flex justify-center md:justify-start"
             v-model="itemQuantity"
           >
             <NumberFieldDecrement class="p-2 disabled:opacity-20">
@@ -41,7 +41,7 @@
             </NumberFieldDecrement>
             <NumberFieldInput
               readonly
-              class="w-[60%] rounded-sm border border-charcoal text-center"
+              class="w-[20%] md:w-[60%] rounded-sm border border-charcoal text-center"
             />
             <NumberFieldIncrement class="p-2">
               <IconPlus />
