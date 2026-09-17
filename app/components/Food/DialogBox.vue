@@ -17,6 +17,7 @@
               :src="item?.image"
               :alt="item?.name"
               class="aspect-3/1 w-full rounded-xl object-cover"
+              format="webp"
             />
           </div>
           <FoodMenuOptions

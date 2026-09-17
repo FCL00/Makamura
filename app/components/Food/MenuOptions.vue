@@ -18,6 +18,7 @@
           width="32"
           height="32"
           class="addon-thumbnail"
+          format="webp"
         />
 
         <div>
@@ -87,6 +88,7 @@ type SelectedAddOn = {
 type MenuOptionsProps = {
   option: AddOnOption;
   selectedAddOns: SelectedAddOn[];
+  single?: boolean;
 };
 
 type MenuOptionsEmits = {
@@ -108,5 +110,7 @@ const updateQuantity = (addOn: AddOn, quantity: number) => {
 
 const emit = defineEmits<MenuOptionsEmits>()
 
-const props = defineProps<MenuOptionsProps>();
+const props = withDefaults(defineProps<MenuOptionsProps>(), {
+  single: false
+});
 </script>

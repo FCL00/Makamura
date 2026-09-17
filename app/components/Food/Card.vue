@@ -4,7 +4,8 @@
   >
     <div class="aspect-4/3 bg-peach relative">
       <NuxtImg
-        class="object-cover h-full w-full"
+        class="object-cover h-full w-full cursor-pointer"
+        @click="handleAddOrder(item.id)"
         :src="item.image"
         :alt="item.name"
       />
@@ -18,25 +19,10 @@
         class="absolute bottom-3 left-3 px-4 text-md font-semibold bg-butter rounded-full"
         >${{ item.price.toFixed(2) }}</span
       >
-
-      <!-- <div
-        v-if="item.heat > 0"
-        class="flex items-center gap-1.5 p-2 absolute bottom-3 right-3 bg-cream rounded-full"
-      >
-        <span
-          v-for="dot in 4"
-          :key="dot"
-          class="h-1.5 w-1.5 rounded-full"
-          :class="dot <= item.heat ? 'bg-tomato' : 'bg-line'"
-        />
-        <span class="ml-1 text-xs text-stone">
-          {{ spicyLevel[item.heat]?.label }}
-        </span>
-      </div> -->
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">
       <div class="flex items-center justify-between gap-3">
-        <h3 class="font-display text-lg font-bold leading-tight text-charcoal">
+        <h3 class="font-display text-lg font-bold leading-tight text-charcoal cursor-pointer" @click="handleAddOrder(item.id)">
           {{ item.name }}
         </h3>
       </div>

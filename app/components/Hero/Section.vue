@@ -59,6 +59,7 @@ const stats = [
             <NuxtImg
               class="object-cover border rounded-2xl border-butter"
               src="/images/menu/honey-butter.png"
+              format="webp"
             />
             <div
               class="absolute w-full bottom-0 left-0 md:bottom-2 md:left-2 md:max-w-xs bg-butter/40 backdrop-blur-md border border-butter/20 p-3 rounded-sm shadow-lg"
