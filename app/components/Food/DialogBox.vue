@@ -137,13 +137,19 @@ const updateSelectedAddOns = (addOn: AddOn, quantity: number) => {
 
 }
 
-
+const resetCustomization = () => {
+  selectedAddOns.value = [];
+  itemQuantity.value = 1;
+};
 
 const emit = defineEmits<FoodDialogBoxEmits>();
 
 const props = defineProps<FoodDialogBoxProps>();
 
 const onChangeOpen = (isOpen: boolean) => {
+  if (!isOpen) {
+    resetCustomization();
+  }
   emit("update:isOpen", isOpen);
 };
 </script>

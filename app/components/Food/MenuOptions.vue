@@ -47,7 +47,7 @@
         :min="0"
         :max="20"
         :default-value="0"
-        :id="option.id"
+        :id="`${option.id}-${addOn.id}`"
         class="col-span-1 flex justify-end"
         :model-value="getQuantity(addOn.id)"
         @update:model-value="(value) => updateQuantity(addOn, value)"
