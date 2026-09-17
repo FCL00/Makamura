@@ -58,7 +58,7 @@ const stats = [
           <div class="relative">
             <NuxtImg
               class="object-cover border rounded-2xl border-butter"
-              src="/images/menu/honey-butter.png"
+              src="/images/wings/honey-butter.webp"
               format="webp"
             />
             <div

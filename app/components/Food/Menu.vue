@@ -26,8 +26,6 @@ const {
   selectedItem,
   isDialogOpen,
   openFoodDialog,
-  subtotal,
-  totalAmmount,
 } = useFoodMenu();
 
 </script>
