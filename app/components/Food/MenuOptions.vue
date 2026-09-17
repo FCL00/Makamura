@@ -17,7 +17,7 @@
           :alt="addOn.name"
           width="32"
           height="32"
-          class="rounded"
+          class="addon-thumbnail"
         />
 
         <div>
