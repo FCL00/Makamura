@@ -36,18 +36,18 @@
             class="flex justify-center md:justify-start"
             v-model="itemQuantity"
           >
-            <NumberFieldDecrement class="p-2 disabled:opacity-20">
+            <NumberFieldDecrement class="p-1 md:p-2 disabled:opacity-20">
               <IconMinus />
             </NumberFieldDecrement>
             <NumberFieldInput
               readonly
               class="w-[20%] md:w-[60%] rounded-sm border border-charcoal text-center"
             />
-            <NumberFieldIncrement class="p-2">
+            <NumberFieldIncrement class="p-1 md:p-2">
               <IconPlus />
             </NumberFieldIncrement>
           </NumberFieldRoot>
-          <Button class="w-full" type="button">
+          <Button class="w-full h-full" type="button">
             Add to Basket ~ ${{ totalAmount.toFixed(2) }}
           </Button>
         </DialogFooter>

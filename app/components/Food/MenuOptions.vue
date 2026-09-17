@@ -9,9 +9,9 @@
     <div
       v-for="addOn in option.addOns"
       :key="addOn.id"
-      class="grid grid-cols-2  md:grid-cols-3 border-b border-line last:border-b-0 py-2"
+      class="grid grid-cols-2  md:grid-cols-4 border-b border-line last:border-b-0 py-2"
     >
-      <div class="col-span-1 md:col-span-2 flex items-center gap-2">
+      <div class="col-span-1 md:col-span-3 flex items-center gap-2">
         <NuxtImg
           :src="addOn.image"
           :alt="addOn.name"
@@ -45,24 +45,24 @@
       <NumberFieldRoot
         v-else
         :min="0"
-        :max="20"
+        :max="100"
         :default-value="0"
         :id="`${option.id}-${addOn.id}`"
         class="col-span-1 flex justify-end"
         :model-value="getQuantity(addOn.id)"
         @update:model-value="(value) => updateQuantity(addOn, value)"
       >
-        <NumberFieldDecrement v-if="getQuantity(addOn.id) >= 1" class="p-2 disabled:opacity-20"">
+        <NumberFieldDecrement v-if="getQuantity(addOn.id) >= 1" class="p-1 md:p-2 disabled:opacity-20"">
           <IconMinus />
         </NumberFieldDecrement>
 
         <NumberFieldInput
           v-if="getQuantity(addOn.id) >= 1"
           readonly
-          class="w-[60%] rounded-sm border border-charcoal text-center"
+          class="w-[20%] md:w-[60%] rounded-sm border border-charcoal text-center"
         />
 
-        <NumberFieldIncrement class="p-2">
+        <NumberFieldIncrement class="p-1 md:p-2">
           <IconPlus />
         </NumberFieldIncrement>
       </NumberFieldRoot>
