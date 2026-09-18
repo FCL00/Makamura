@@ -206,7 +206,9 @@ export const heatLevels = {
 
 export type HeatLevels = typeof heatLevels;
 
-export type AddOnCategory = "sides" | "drinks" | "dips" | "size";
+export type AddOnCategory = "sides" | "drinks" | "dips" | "size" | "flavors";
+
+export type AddOnSelectionType = "quantity" | "single" | "select";
 
 export type AddOn = {
   id: string;
@@ -221,13 +223,58 @@ export type AddOnOption = {
   heading: string;
   subHeading: string;
   addOns: AddOn[];
+  selectionType: AddOnSelectionType;
 };
 
 export const foodOptions: AddOnOption[] = [
   {
+    id: "flavors",
+    heading: "Flavors",
+    subHeading: "Select Flavors",
+    selectionType: "select",
+    addOns: [
+      {
+        id: "honey-butter",
+        name: "honey-butter",
+        category: "flavors",
+        price: 0,
+        image: "/image/wings/honey-butter.webp",
+      },
+      {
+        id: "calamansi-chili",
+        name: "calamansi-chili",
+        category: "flavors",
+        price: 0,
+        image: "/image/wings/calamansi-chili.webp",
+      },
+      {
+        id: "garlic-parmesan",
+        name: "garlic-parmesan",
+        category: "flavors",
+        price: 0,
+        image: "/image/wings/garlic-parmesan.webp",
+      },
+      {
+        id: "ghost-pepper",
+        name: "ghost-pepper",
+        category: "flavors",
+        price: 0,
+        image: "/image/wings/ghost-pepper.webp",
+      },
+      {
+        id: "ghost-pepper",
+        name: "ghost-pepper",
+        category: "flavors",
+        price: 0,
+        image: "/image/wings/spicy-sriracha.webp",
+      },
+    ],
+  },
+  {
     id: "sides",
     heading: "Add-ons (optional)",
     subHeading: "Select any choices",
+    selectionType: "quantity",
     addOns: [
       {
         id: "white-rice",
@@ -257,6 +304,7 @@ export const foodOptions: AddOnOption[] = [
     id: "dips",
     heading: "Dips",
     subHeading: "Choose your favorite sauce",
+    selectionType: "quantity",
     addOns: [
       {
         id: "ranch",
@@ -279,20 +327,35 @@ export const foodOptions: AddOnOption[] = [
     id: "drinks",
     heading: "Drinks",
     subHeading: "Something cold to go with it",
+    selectionType: "single",
     addOns: [
       {
-        id: "coca-cola",
-        name: "Coca-Cola",
+        id: "coca-cola-medium",
+        name: "Coca-Cola (Medium)",
         category: "drinks",
-        price: 2.5,
-        image: "/images/sides/buttermilk-slaw.webp",
+        price: 3.5,
+        image: "/images/drinks/coca-cola.webp",
       },
       {
-        id: "sprite",
-        name: "Sprite",
+        id: "coca-cola-large",
+        name: "Coca-Cola (Large)",
+        category: "drinks",
+        price: 3.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
+      {
+        id: "sprite-medium",
+        name: "Sprite (Medium)",
         category: "drinks",
         price: 2.5,
-        image: "/images/sides/buttermilk-slaw.webp",
+        image: "/images/drinks/coca-cola.webp",
+      },
+      {
+        id: "sprite-large",
+        name: "Sprite (Large)",
+        category: "drinks",
+        price: 2.5,
+        image: "/images/drinks/coca-cola.webp",
       },
     ],
   },
@@ -300,6 +363,7 @@ export const foodOptions: AddOnOption[] = [
     id: "size",
     heading: "Size",
     subHeading: "Select One",
+    selectionType: "single",
     addOns: [
       {
         id: "regular",
