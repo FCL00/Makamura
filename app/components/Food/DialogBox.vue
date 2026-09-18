@@ -20,13 +20,29 @@
               format="webp"
             />
           </div>
-          <FoodMenuOptions
-            v-for="option in availableOptions"
-            :key="option.heading"
-            :option="option"
-            :selected-add-ons="selectedAddOns"
-            @update:selectedAddOn="updateSelectedAddOns"
-          />
+
+          <template v-for="option in availableOptions" :key="option.id">
+            <FoodMenuOptionQuantity
+              v-if="option.selectionType === 'quantity'"
+              :option="option"
+              :selected-add-ons="selectedAddOns"
+              @update:selectedAddOn="updateSelectedAddOns"
+            />
+
+            <!-- <FoodMenuOptionSelect
+              v-if="option.selectionType === 'select'"
+              :option="option"
+              :select-add-ons="selectedAddOns"
+              @update:selectAddon="updateSelectedAddOns"
+            /> -->
+
+            <FoodMenuOptionRadio
+              v-else-if="option.selectionType === 'single'"
+              :option="option"
+              :selected-add-ons="selectedAddOns"
+              @update:selectedAddOn="updateSelectedAddOns"
+            />
+          </template>
         </DialogBody>
         <DialogFooter class="flex flex-col md:flex-row">
           <NumberFieldRoot
@@ -80,9 +96,9 @@ import {
 } from "reka-ui";
 
 type SelectedAddOn = {
-  addOn: AddOn,
-  quantity: number,
-}
+  addOn: AddOn;
+  quantity: number;
+};
 
 type FoodDialogBoxProps = {
   item: Menu | null;
@@ -102,7 +118,9 @@ const availableOptions = computed(() => {
   if (!addOnCategories) {
     return [];
   }
-  return foodOptions.filter((addOnCategory) => addOnCategories.includes(addOnCategory.id));
+  return foodOptions.filter((addOnCategory) =>
+    addOnCategories.includes(addOnCategory.id),
+  );
 });
 
 const addOnsTotal = computed(() => {
@@ -121,22 +139,42 @@ const totalAmount = computed(() => {
   return subtotal.value * itemQuantity.value;
 });
 
-const updateSelectedAddOns = (addOn: AddOn, quantity: number) => {
-  const existing = selectedAddOns.value.find((selected) => selected.addOn.id === addOn.id);
+const updateSelectedAddOns = (
+  addOn: AddOn,
+  quantity: number,
+  optionId: string,
+) => {
+  const existing = selectedAddOns.value.find(
+    (selected) => selected.addOn.id === addOn.id,
+  );
 
-  if(quantity <= 0) {
-    selectedAddOns.value = selectedAddOns.value.filter((selected) => selected.addOn.id !== addOn.id);
+  if (quantity <= 0) {
+    selectedAddOns.value = selectedAddOns.value.filter(
+      (selected) => selected.addOn.id !== addOn.id,
+    );
     return;
   }
 
-  if(existing){
+  const option = availableOptions.value.find(
+    (option) => option.id === optionId,
+  );
+
+  if (option?.selectionType === "single") {
+    selectedAddOns.value = selectedAddOns.value.filter(
+      (selected) =>
+        !option.addOns.some(
+          (optionAddOn) => optionAddOn.id === selected.addOn.id,
+        ),
+    );
+  }
+
+  if (existing) {
     existing.quantity = quantity;
     return;
   }
 
-  selectedAddOns.value.push({addOn, quantity})
-
-}
+  selectedAddOns.value.push({ addOn, quantity });
+};
 
 const resetCustomization = () => {
   selectedAddOns.value = [];
