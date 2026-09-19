@@ -14,7 +14,7 @@
           </h2>
         </div>
 
-        <div class="hidden gap-2 sm:flex">
+        <div class="hidden lg:flex gap-2 ">
           <button
             type="button"
             aria-label="Previous review"
@@ -47,7 +47,7 @@
                 “{{ review.comment }}”
               </blockquote>
 
-              <figcaption class="mt-6 border-t border-line pt-4 text-sm">
+              <figcaption class="border-t border-line pt-4 text-sm">
                 <span class="font-semibold text-charcoal">
                   {{ review.name }}
                 </span>
@@ -60,6 +60,25 @@
           </swiper-slide>
         </swiper-container>
       </ClientOnly>
+      <div class="flex lg:hidden gap-2 mt-10">
+        <button
+          type="button"
+          aria-label="Previous review"
+          class="grid size-11 place-items-center rounded-full border border-line bg-white text-charcoal transition hover:bg-charcoal hover:text-white"
+          @click="prevReview"
+        >
+          ←
+        </button>
+
+        <button
+          type="button"
+          aria-label="Next review"
+          class="grid size-11 place-items-center rounded-full border border-line bg-white text-charcoal transition hover:bg-charcoal hover:text-white"
+          @click="nextReview"
+        >
+          →
+        </button>
+      </div>
     </div>
   </section>
 </template>
