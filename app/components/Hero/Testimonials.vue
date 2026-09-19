@@ -42,7 +42,7 @@
         ref="swiper"
         class="mt-10"
         slides-per-view="1"
-        space-between="24"
+        space-between="23"
         :breakpoints="{
           768: {
             slidesPerView: 2,
