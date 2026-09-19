@@ -43,10 +43,10 @@
           <span
             class="flex size-5 items-center justify-center rounded-full bg-peach"
             :class="{
-              'border-tomato': isSelected(addOn.id),
+              'border border-tomato': isSelected(addOn.id),
             }"
           >
-            <IconX v-if="isSelected(addOn.id)" class="size-5 rounded-full" />
+            <IconX v-if="isSelected(addOn.id)" class="size-4 text-tomato" />
           </span>
         </button>
       </div>

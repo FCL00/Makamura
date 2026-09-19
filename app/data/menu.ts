@@ -104,7 +104,7 @@ export const menuItems: Menu[] = [
     popular: true,
     description: "20 pieces, up to 3 flavors, feeds 4-5.",
     image: "/images/buckets/party-bucket.webp",
-    addOnCategories: ["sides", "dips", "drinks"],
+    addOnCategories: ["sides", "dips", "quantity-drinks", "party-bucket"],
   },
   {
     id: "solo-bucket",
@@ -115,7 +115,7 @@ export const menuItems: Menu[] = [
     popular: false,
     description: "8 pieces, 1 flavor, fries on the side.",
     image: "/images/buckets/solo-bucket.webp",
-    addOnCategories: ["sides", "dips", "drinks"],
+    addOnCategories: ["sides", "dips", "quantity-drinks", "solo-bucket"],
   },
   {
     id: "crew-bucket",
@@ -126,7 +126,7 @@ export const menuItems: Menu[] = [
     popular: false,
     description: "30 pieces, up to 4 flavors, feeds 6-8.",
     image: "/images/buckets/crew-bucket.webp",
-    addOnCategories: ["sides", "dips", "drinks"],
+    addOnCategories: ["sides", "dips", "quantity-drinks", "crew-bucket"],
   },
   {
     id: "crinkle-fries",
@@ -137,7 +137,7 @@ export const menuItems: Menu[] = [
     popular: true,
     description: "Double-fried, tossed in house seasoning.",
     image: "/images/sides/crickle-fries.webp",
-    addOnCategories: ["dips", "drinks"],
+    addOnCategories: ["fries-size", "dips", "drinks"],
   },
   {
     id: "slaw",
@@ -206,9 +206,19 @@ export const heatLevels = {
 
 export type HeatLevels = typeof heatLevels;
 
-export type AddOnCategory = "sides" | "drinks" | "dips" | "size" | "flavors";
+export type AddOnCategory =
+  | "sides"
+  | "drinks"
+  | "dips"
+  | "size"
+  | "flavors"
+  | "quantity-drinks"
+  | "fries-size"
+  | "solo-bucket"
+  | "party-bucket"
+  | "crew-bucket";
 
-export type AddOnSelectionType = "quantity" | "single" | "select";
+export type AddOnSelectionType = "quantity" | "single" | "multiple";
 
 export type AddOn = {
   id: string;
@@ -219,62 +229,203 @@ export type AddOn = {
 };
 
 export type AddOnOption = {
-  id: AddOnCategory;
+  id: string;
   heading: string;
   subHeading: string;
+  category: AddOnCategory;
   addOns: AddOn[];
   selectionType: AddOnSelectionType;
+  minSelections?: number;
+  maxSelections?: number;
+  defaultAddOnIds?: string[];
 };
 
 export const foodOptions: AddOnOption[] = [
   {
-    id: "flavors",
+    id: "solo-flavors-set-1",
     heading: "Flavors",
     subHeading: "Select Flavors",
-    selectionType: "select",
+    selectionType: "multiple",
+    defaultAddOnIds: ["honey-butter"],
+    category: "solo-bucket",
+    minSelections: 1,
+    maxSelections: 1,
     addOns: [
       {
         id: "honey-butter",
         name: "honey-butter",
         category: "flavors",
         price: 0,
-        image: "/image/wings/honey-butter.webp",
+        image: "/images/wings/honey-butter-chicken.webp",
       },
       {
         id: "calamansi-chili",
         name: "calamansi-chili",
         category: "flavors",
         price: 0,
-        image: "/image/wings/calamansi-chili.webp",
+        image: "/images/wings/calamansi-chili.webp",
       },
       {
         id: "garlic-parmesan",
         name: "garlic-parmesan",
         category: "flavors",
         price: 0,
-        image: "/image/wings/garlic-parmesan.webp",
+        image: "/images/wings/garlic-parmesan.webp",
       },
       {
         id: "ghost-pepper",
         name: "ghost-pepper",
         category: "flavors",
         price: 0,
-        image: "/image/wings/ghost-pepper.webp",
+        image: "/images/wings/ghost-pepper.webp",
       },
       {
-        id: "ghost-pepper",
-        name: "ghost-pepper",
+        id: "spicy-sriracha",
+        name: "spicy-sriracha",
         category: "flavors",
         price: 0,
-        image: "/image/wings/spicy-sriracha.webp",
+        image: "/images/wings/spicy-sriracha.webp",
       },
     ],
   },
   {
-    id: "sides",
+    id: "party-flavors-set-1",
+    heading: "Flavors",
+    subHeading: "Select Flavors",
+    selectionType: "multiple",
+    defaultAddOnIds: ["honey-butter"],
+    category: "party-bucket",
+    minSelections: 3,
+    maxSelections: 3,
+    addOns: [
+      {
+        id: "honey-butter",
+        name: "honey-butter",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/honey-butter-chicken.webp",
+      },
+      {
+        id: "calamansi-chili",
+        name: "calamansi-chili",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/calamansi-chili.webp",
+      },
+      {
+        id: "garlic-parmesan",
+        name: "garlic-parmesan",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/garlic-parmesan.webp",
+      },
+      {
+        id: "ghost-pepper",
+        name: "ghost-pepper",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/ghost-pepper.webp",
+      },
+      {
+        id: "spicy-sriracha",
+        name: "spicy-sriracha",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/spicy-sriracha.webp",
+      },
+    ],
+  },
+  {
+    id: "crew-flavors-set-1",
+    heading: "Flavors",
+    subHeading: "Select Flavors",
+    selectionType: "multiple",
+    defaultAddOnIds: ["honey-butter"],
+    category: "crew-bucket",
+    minSelections: 4,
+    maxSelections: 4,
+    addOns: [
+      {
+        id: "honey-butter",
+        name: "honey-butter",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/honey-butter-chicken.webp",
+      },
+      {
+        id: "calamansi-chili",
+        name: "calamansi-chili",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/calamansi-chili.webp",
+      },
+      {
+        id: "garlic-parmesan",
+        name: "garlic-parmesan",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/garlic-parmesan.webp",
+      },
+      {
+        id: "ghost-pepper",
+        name: "ghost-pepper",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/ghost-pepper.webp",
+      },
+      {
+        id: "spicy-sriracha",
+        name: "spicy-sriracha",
+        category: "flavors",
+        price: 0,
+        image: "/images/wings/spicy-sriracha.webp",
+      },
+    ],
+  },
+  {
+    id: "fries-size-set-1",
+    heading: "Size",
+    subHeading: "Select One",
+    selectionType: "single",
+    category: "fries-size",
+    defaultAddOnIds: ["regular"],
+    addOns: [
+      {
+        id: "regular",
+        name: "Regular",
+        category: "sides",
+        price: 75,
+        image: "/images/sides/crickle-fries.webp",
+      },
+      {
+        id: "medium",
+        name: "Medium",
+        category: "sides",
+        price: 100,
+        image: "/images/sides/crickle-fries.webp",
+      },
+      {
+        id: "large",
+        name: "Large",
+        category: "sides",
+        price: 150,
+        image: "/images/sides/crickle-fries.webp",
+      },
+      {
+        id: "extra-large",
+        name: "Extra large",
+        category: "sides",
+        price: 200,
+        image: "/images/sides/crickle-fries.webp",
+      },
+    ],
+  },
+  {
+    id: "sides-set-1",
     heading: "Add-ons (optional)",
     subHeading: "Select any choices",
     selectionType: "quantity",
+    category: "sides",
     addOns: [
       {
         id: "white-rice",
@@ -301,10 +452,11 @@ export const foodOptions: AddOnOption[] = [
   },
 
   {
-    id: "dips",
+    id: "dips-set-1",
     heading: "Dips",
     subHeading: "Choose your favorite sauce",
     selectionType: "quantity",
+    category: "dips",
     addOns: [
       {
         id: "ranch",
@@ -324,11 +476,20 @@ export const foodOptions: AddOnOption[] = [
   },
 
   {
-    id: "drinks",
+    id: "drinks-set-1",
     heading: "Drinks",
     subHeading: "Something cold to go with it",
     selectionType: "single",
+    category: "drinks",
+    defaultAddOnIds: ["coca-cola-medium"],
     addOns: [
+      {
+        id: "coca-cola-small",
+        name: "Coca-Cola (small)",
+        category: "drinks",
+        price: 3.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
       {
         id: "coca-cola-medium",
         name: "Coca-Cola (Medium)",
@@ -360,11 +521,64 @@ export const foodOptions: AddOnOption[] = [
     ],
   },
   {
-    id: "size",
+    id: "drinks-set-2",
+    heading: "Drinks",
+    subHeading: "Something cold to go with it",
+    selectionType: "quantity",
+    category: "quantity-drinks",
+    addOns: [
+      {
+        id: "coca-cola-small",
+        name: "Coca-Cola (Small)",
+        category: "drinks",
+        price: 3.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
+      {
+        id: "coca-cola-medium",
+        name: "Coca-Cola (Medium)",
+        category: "drinks",
+        price: 3.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
+      {
+        id: "coca-cola-large",
+        name: "Coca-Cola (Large)",
+        category: "drinks",
+        price: 3.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
+      {
+        id: "sprite-medium",
+        name: "Sprite (Medium)",
+        category: "drinks",
+        price: 2.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
+      {
+        id: "sprite-large",
+        name: "Sprite (Large)",
+        category: "drinks",
+        price: 2.5,
+        image: "/images/drinks/coca-cola.webp",
+      },
+    ],
+  },
+  {
+    id: "size-set-1",
     heading: "Size",
     subHeading: "Select One",
     selectionType: "single",
+    category: "size",
+    defaultAddOnIds: ["small"],
     addOns: [
+      {
+        id: "small",
+        name: "Small",
+        category: "drinks",
+        price: 75,
+        image: "/images/drinks/coca-cola.webp",
+      },
       {
         id: "regular",
         name: "Regular",
