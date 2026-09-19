@@ -3,10 +3,7 @@
     <div class="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-12 md:items-center">
       <div class="relative md:col-span-5">
         <div class="aspect-4/3 overflow-hidden rounded-2xl border border-line bg-butter/40">
-          <!-- Swap for <img src="..." alt="..."> once real photography is ready -->
-          <div class="flex h-full items-center justify-center px-8 text-center font-display text-sm font-bold uppercase tracking-wide text-charcoal/50">
-            Kitchen / fryer photo placeholder
-          </div>
+          <NuxtImg class="object-cover h-full" src="/images/hero/story.webp" alt="Kitchen Image"/>
         </div>
       </div>
 

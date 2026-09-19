@@ -11,11 +11,36 @@ export type Menu = {
   image: string,
 }
 
+export type AddOn = {
+  id: string;
+  name: string;
+  category: AddOnCategory;
+  price: number;
+  image: string;
+};
 
-// export type HeatLevels = Record<string, {label: string, dots: number}>
+export type AddOnCategory =
+  | "sides"
+  | "drinks"
+  | "dips"
+  | "size"
+  | "flavors"
+  | "quantity-drinks"
+  | "fries-size"
+  | "solo-bucket"
+  | "party-bucket"
+  | "crew-bucket";
 
-export type HeatLevels = {
-    [key: number]: {label: string, dots: number}
-}
 
 
+export type SelectedAddOn = {
+  addOn: AddOn;
+  quantity: number;
+};
+
+
+export type BasketItem = {
+  item: Menu;
+  quantity: number;
+  selectedAddOns: SelectedAddOn[];
+};
