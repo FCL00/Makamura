@@ -1,8 +1,7 @@
 <template>
   <section id="reviews" class="border-b border-line bg-cream">
     <div class="mx-auto max-w-6xl px-6 py-20">
-      <!-- Header -->
-      <div class="flex items-end justify-between gap-6">
+      <div class="flex items-end justify-between">
         <div>
           <p
             class="text-sm font-semibold uppercase tracking-[0.12em] text-tomato"
@@ -15,7 +14,6 @@
           </h2>
         </div>
 
-        <!-- Controls -->
         <div class="hidden gap-2 sm:flex">
           <button
             type="button"
@@ -27,9 +25,9 @@
           </button>
 
           <button
+            class="grid size-11 place-items-center rounded-full border border-line bg-white text-charcoal transition hover:bg-charcoal hover:text-white"
             type="button"
             aria-label="Next review"
-            class="grid size-11 place-items-center rounded-full border border-line bg-white text-charcoal transition hover:bg-charcoal hover:text-white"
             @click="nextReview"
           >
             →
@@ -37,79 +35,66 @@
         </div>
       </div>
 
-      <!-- Reviews -->
-      <swiper-container
-        ref="swiper"
-        class="mt-10"
-        slides-per-view="1"
-        space-between="23"
-        :breakpoints="{
-          768: {
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerView: 3,
-          },
-        }"
-      >
-        <swiper-slide v-for="review in reviews" :key="review.name">
-          <figure
-            class="flex min-h-64 h-full flex-col justify-between rounded-2xl border border-line bg-white p-7"
-          >
-            <blockquote
-              class="font-display text-2xl font-medium leading-snug text-charcoal"
+      <ClientOnly>
+        <swiper-container ref="swiper" class="mt-10" init="false">
+          <swiper-slide v-for="review in reviews" :key="review.id">
+            <figure
+              class="flex min-h-64 h-full flex-col justify-between rounded-2xl border border-line bg-white p-7"
             >
-              <em>“{{ review.comment }}”</em>
-            </blockquote>
+              <blockquote
+                class="font-display text-2xl font-medium leading-snug text-charcoal"
+              >
+                “{{ review.comment }}”
+              </blockquote>
 
-            <figcaption class="mt-6 border-t border-line pt-4 text-sm">
-              <span class="font-semibold text-charcoal">
-                {{ review.name }}
-              </span>
+              <figcaption class="mt-6 border-t border-line pt-4 text-sm">
+                <span class="font-semibold text-charcoal">
+                  {{ review.name }}
+                </span>
 
-              <span class="block text-stone">
-                {{ review.context }}
-              </span>
-            </figcaption>
-          </figure>
-        </swiper-slide>
-      </swiper-container>
-
-      <!-- Mobile controls -->
-      <div class="mt-6 flex gap-2 sm:hidden">
-        <button
-          type="button"
-          aria-label="Previous review"
-          class="grid size-11 place-items-center rounded-full border border-line bg-white text-charcoal"
-          @click="prevReview"
-        >
-          ←
-        </button>
-
-        <button
-          type="button"
-          aria-label="Next review"
-          class="grid size-11 place-items-center rounded-full border border-line bg-white text-charcoal"
-          @click="nextReview"
-        >
-          →
-        </button>
-      </div>
+                <span class="block text-stone">
+                  {{ review.context }}
+                </span>
+              </figcaption>
+            </figure>
+          </swiper-slide>
+        </swiper-container>
+      </ClientOnly>
     </div>
   </section>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { reviews } from "~/data/review";
 import type { SwiperContainer } from "swiper/element";
 
 const swiper = useTemplateRef<SwiperContainer>("swiper");
 
-const nextReview = () => {
-  swiper.value?.swiper.slideNext();
+const swiperOptions = {
+  slidesPerView: 1,
+  spaceBetween: 24,
+  breakpoints: {
+    768: {
+      slidesPerView: 2,
+    },
+    1024: {
+      slidesPerView: 3,
+    },
+  },
 };
+
+onMounted(async () => {
+  await nextTick();
+  if (!swiper.value) return;
+  Object.assign(swiper.value, swiperOptions);
+  swiper.value.initialize();
+});
 
 const prevReview = () => {
   swiper.value?.swiper.slidePrev();
+};
+
+const nextReview = () => {
+  swiper.value?.swiper.slideNext();
 };
 </script>
