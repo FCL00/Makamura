@@ -36,4 +36,10 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+   vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => tag.startsWith('swiper-'),
+    },
+  },
 });
