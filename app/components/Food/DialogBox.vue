@@ -64,7 +64,7 @@
               <IconPlus />
             </NumberFieldIncrement>
           </NumberFieldRoot>
-          <Button class="w-full h-full" type="button" @click="onAddToBasket(item)">
+          <Button class="w-full h-full" type="button" @click="handleAddToBasket()">
             Add to Basket ~ ₱{{ totalAmount.toFixed(2) }}
           </Button>
         </DialogFooter>
@@ -93,6 +93,7 @@ import {
   NumberFieldInput,
   NumberFieldRoot,
 } from "reka-ui";
+import { useBaskets } from "~/composables/useBasket";
 
 type SelectedAddOn = {
   addOn: AddOn;
@@ -108,6 +109,8 @@ type FoodDialogBoxEmits = {
   "update:isOpen": [isOpen: boolean];
 };
 
+const { addToBasket } = useBaskets();
+
 const props = defineProps<FoodDialogBoxProps>();
 
 const emit = defineEmits<FoodDialogBoxEmits>();
@@ -116,12 +119,10 @@ const itemQuantity = ref(1);
 
 const selectedAddOns = ref<SelectedAddOn[]>([]);
 
-const selectedFoodItem = ref<Menu[] | null>(null);
-
-const onAddToBasket = (item: Menu) => {
-    selectedFoodItem.value?.push(item);
-    console.log(selectedFoodItem.value)
-}
+const handleAddToBasket = () => {
+  if (!props.item) return;
+  addToBasket(props.item, itemQuantity.value, selectedAddOns.value);
+};
 
 const availableOptions = computed(() => {
   const addOnCategories = props.item?.addOnCategories;
