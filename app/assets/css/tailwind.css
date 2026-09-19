@@ -61,6 +61,18 @@
   letter-spacing: -0.03em;
 }
 
+
+@layer utilities {
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 200ms ease;
+  }
+
+  .page-enter-from,
+  .page-leave-to {
+    opacity: 0;
+  }
+}
 /* Hand-drawn-feel underline/circle accents used sparingly as the page's one
    recurring "bold" motif -- see HeroSection + MenuSection category pills */
 /* @utility marker-circle {
