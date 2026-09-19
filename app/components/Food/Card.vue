@@ -17,7 +17,7 @@
       </span>
       <span
         class="absolute bottom-3 left-3 px-4 text-md font-semibold bg-butter rounded-full"
-        >${{ item.price.toFixed(2) }}</span
+        >₱{{ item.price.toFixed(2) }}</span
       >
     </div>
     <div class="flex flex-1 flex-col gap-2 p-5">

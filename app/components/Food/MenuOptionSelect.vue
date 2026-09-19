@@ -28,7 +28,7 @@
           </p>
 
           <p class="text-xs text-stone" v-if="addOn.price > 0">
-            +${{ addOn.price.toFixed(2) }}
+            +₱{{ addOn.price.toFixed(2) }}
           </p>
         </div>
       </div>

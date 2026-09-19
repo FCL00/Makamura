@@ -31,7 +31,7 @@ const buckets = menuItems.filter((item) => item.category === 'buckets')
             </p>
           </div>
           <div class="mt-8 flex items-center justify-between border-t pt-5" :class="i === 1 ? 'border-cream/15' : 'border-line'">
-            <span class="font-display text-xl font-extrabold">${{ bucket.price.toFixed(2) }}</span>
+            <span class="font-display text-xl font-extrabold">₱{{ bucket.price.toFixed(2) }}</span>
             <a
               href="#order"
               class="rounded-full px-4 py-2 text-sm font-semibold transition-transform hover:-translate-y-0.5"

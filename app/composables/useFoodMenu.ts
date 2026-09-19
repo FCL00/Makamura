@@ -30,6 +30,7 @@ export const useFoodMenu = () => {
     if(!item) return;
     selectedItem.value = item;
     isDialogOpen.value = true;
+    console.log("Basket");
   }
 
   const closeFoodDialog = () => {

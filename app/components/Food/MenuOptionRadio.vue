@@ -27,7 +27,7 @@
             {{ addOn.name }}
           </p>
 
-          <p class="text-xs text-stone">+${{ addOn.price.toFixed(2) }}</p>
+          <p class="text-xs text-stone">+₱{{ addOn.price.toFixed(2) }}</p>
         </div>
       </div>
 

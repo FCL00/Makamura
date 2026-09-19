@@ -64,8 +64,8 @@
               <IconPlus />
             </NumberFieldIncrement>
           </NumberFieldRoot>
-          <Button class="w-full h-full" type="button">
-            Add to Basket ~ ${{ totalAmount.toFixed(2) }}
+          <Button class="w-full h-full" type="button" @click="onAddToBasket(item)">
+            Add to Basket ~ ₱{{ totalAmount.toFixed(2) }}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -115,6 +115,13 @@ const emit = defineEmits<FoodDialogBoxEmits>();
 const itemQuantity = ref(1);
 
 const selectedAddOns = ref<SelectedAddOn[]>([]);
+
+const selectedFoodItem = ref<Menu[] | null>(null);
+
+const onAddToBasket = (item: Menu) => {
+    selectedFoodItem.value?.push(item);
+    console.log(selectedFoodItem.value)
+}
 
 const availableOptions = computed(() => {
   const addOnCategories = props.item?.addOnCategories;

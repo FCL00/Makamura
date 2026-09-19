@@ -24,7 +24,7 @@ const drinks = menuItems.filter((item) => item.category === 'drinks')
           <p class="font-display text-lg font-bold text-charcoal">{{ drink.name }}</p>
           <p class="mt-1 text-sm text-stone">{{ drink.description }}</p>
           <p class="mt-4 font-display text-base font-bold text-charcoal">
-            ${{ drink.price.toFixed(2) }}
+            ₱{{ drink.price.toFixed(2) }}
           </p>
         </li>
       </ul>
