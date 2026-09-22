@@ -1,3 +1,5 @@
+
+
 export type Category = "wings"  | "buckets" | "sides"  | "drinks"  | "dips"  | "all";
 
 export type Menu = {
@@ -40,6 +42,7 @@ export type SelectedAddOn = {
 
 
 export type BasketItem = {
+  id: string;
   item: Menu;
   quantity: number;
   selectedAddOns: SelectedAddOn[];
