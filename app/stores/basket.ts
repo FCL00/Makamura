@@ -68,22 +68,22 @@ export const useBasketStore = defineStore("basket", () => {
   const saveBasket = () => {
     if (!import.meta.client) return;
 
-    localStorage.setItem(
-      BASKET_STORAGE_KEY,
-      JSON.stringify(basketItems.value),
-    );
+    localStorage.setItem(BASKET_STORAGE_KEY, JSON.stringify(basketItems.value));
+  };
+
+  const clearBasket = () => {
+    basketItems.value = [];
+    saveBasket();
   };
 
   const subtotal = computed(() => {
     return basketItems.value.reduce((total, basketItem) => {
-      const itemTotal =
-        basketItem.item.price * basketItem.quantity;
+      const itemTotal = basketItem.item.price * basketItem.quantity;
 
       const addOnsTotal = basketItem.selectedAddOns.reduce(
         (addOnTotal, selectedAddOn) => {
           return (
-            addOnTotal +
-            selectedAddOn.addOn.price * selectedAddOn.quantity
+            addOnTotal + selectedAddOn.addOn.price * selectedAddOn.quantity
           );
         },
         0,
@@ -118,5 +118,6 @@ export const useBasketStore = defineStore("basket", () => {
     deliveryFee,
     VAT,
     totalAmount,
+    clearBasket,
   };
 });
