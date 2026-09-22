@@ -284,7 +284,7 @@ const { isCheckoutOpen, closeCheckout, backToBasket, openOrderTracking } =
   useModal();
 
 const form = reactive({
-  name: "Sample Name",
+  name: "John Doe",
   address: "123 Sample Street, Barangay Example",
   city: "Quezon City",
   phone: "0917 123 4567",
