@@ -5,10 +5,45 @@ export const useModal = () => {
 
   const isFoodOpen = useState<boolean>("modal-food-open", () => false);
 
+  const isCheckoutOpen = useState<boolean>("modal-checkout-open", () => false);
+
   const editingBasketItem = useState<BasketItem | null>(
     "modal-editing-basket-item",
     () => null,
   );
+
+  const isOrderTrackingOpen = useState<boolean>(
+    "modal-order-tracking-open",
+    () => false,
+  );
+
+  const openOrderTracking = () => {
+    isOrderTrackingOpen.value = true;
+  };
+
+  const closeOrderTracking = () => {
+    isOrderTrackingOpen.value = false;
+  };
+
+  const openCheckout = () => {
+    isBasketOpen.value = false;
+    isCheckoutOpen.value = true;
+  };
+
+  const closeCheckout = () => {
+    isCheckoutOpen.value = false;
+  };
+
+  const openCheckoutFromBasket = () => {
+    isBasketOpen.value = false;
+    isCheckoutOpen.value = true;
+  };
+
+  const backToBasket = () => {
+    isCheckoutOpen.value = false;
+    isBasketOpen.value = true;
+  };
+  
 
   const openBasket = () => {
     isBasketOpen.value = true;
@@ -57,5 +92,15 @@ export const useModal = () => {
     openFoodForEdit,
     closeFoodForEdit,
     closeFoodAndOpenBasket,
+
+    openCheckout,
+    closeCheckout,
+    isCheckoutOpen,
+    openCheckoutFromBasket,
+    backToBasket,
+
+    isOrderTrackingOpen,
+    openOrderTracking,
+    closeOrderTracking,
   };
 };
