@@ -15,10 +15,10 @@ export default defineNuxtConfig({
     }
   },
   imports: {
-    dirs: ["./app/constants", "./app/data", "./app/types"],
+    dirs: ["./app/constants", "./app/data", "./app/types", "./app/stores"],
   },
   css: ["~/assets/css/tailwind.css"],
-  modules: ["@nuxt/eslint", "@nuxt/image", "nuxt-lucide-icons"],
+  modules: ["@nuxt/eslint", "@nuxt/image", "nuxt-lucide-icons", "@pinia/nuxt"],
 
   lucide: {
     namePrefix: 'Icon'
