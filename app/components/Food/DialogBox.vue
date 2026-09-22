@@ -2,20 +2,23 @@
   <DialogRoot :open="isOpen" @update:open="onChangeOpen">
     <DialogPortal>
       <DialogOverlay class="fixed inset-0 z-40 bg-charcoal/50" />
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
             {{ item?.name }}
           </DialogTitle>
+
           <DialogDescription>
             {{ item?.description }}
           </DialogDescription>
         </DialogHeader>
+
         <DialogBody>
-          <div class="p-4">
+          <div v-if="item?.image" class="p-4">
             <NuxtImg
-              :src="item?.image"
-              :alt="item?.name"
+              :src="item.image"
+              :alt="item.name"
               class="aspect-3/1 w-full rounded-xl object-cover"
               format="webp"
             />
@@ -44,28 +47,31 @@
             />
           </template>
         </DialogBody>
+
         <DialogFooter class="flex flex-col md:flex-row">
           <NumberFieldRoot
+            v-model="itemQuantity"
             :min="1"
             :max="20"
-            id="quantity"
-            :default-value="1"
             class="flex justify-center md:justify-start"
-            v-model="itemQuantity"
           >
             <NumberFieldDecrement class="p-1 md:p-2 disabled:opacity-20">
               <IconMinus />
             </NumberFieldDecrement>
+
             <NumberFieldInput
               readonly
-              class="w-[20%] md:w-[60%] rounded-sm border border-charcoal text-center"
+              class="w-[20%] rounded-sm border border-charcoal text-center md:w-[60%]"
             />
+
             <NumberFieldIncrement class="p-1 md:p-2">
               <IconPlus />
             </NumberFieldIncrement>
           </NumberFieldRoot>
-          <Button class="w-full h-full" type="button" @click="handleAddToBasket()">
-            Add to Basket ~ ₱{{ totalAmount.toFixed(2) }}
+
+          <Button class="h-full w-full" type="button" @click="handleSubmit">
+            {{ isEditing ? "Update Basket" : "Add to Basket" }}
+            ~ ₱{{ totalAmount.toFixed(2) }}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -74,81 +80,80 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from "~/components/ui/button";
-import { foodOptions, type AddOn, type Menu } from "~/data/menu";
 import {
-  DialogFooter,
-  DialogPortal,
-  DialogOverlay,
+  DialogBody,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogBody,
+  DialogOverlay,
+  DialogPortal,
   DialogRoot,
+  DialogTitle,
 } from "~/components/ui/dialog";
+
+import { Button } from "~/components/ui/button";
+
 import {
   NumberFieldDecrement,
   NumberFieldIncrement,
   NumberFieldInput,
   NumberFieldRoot,
 } from "reka-ui";
-import { useBaskets } from "~/composables/useBasket";
 
-type SelectedAddOn = {
-  addOn: AddOn;
-  quantity: number;
-};
+import { foodOptions, type AddOn, type Menu } from "~/data/menu";
+
+import type { BasketItem, SelectedAddOn } from "~/types/menu";
 
 type FoodDialogBoxProps = {
   item: Menu | null;
   isOpen: boolean;
+  defaultValues?: BasketItem | null;
 };
 
 type FoodDialogBoxEmits = {
   "update:isOpen": [isOpen: boolean];
 };
 
-const { addToBasket } = useBaskets();
+const { closeFoodAndOpenBasket } = useModal();
 
 const props = defineProps<FoodDialogBoxProps>();
 
 const emit = defineEmits<FoodDialogBoxEmits>();
 
+const basketStore = useBasketStore();
+
 const itemQuantity = ref(1);
 
 const selectedAddOns = ref<SelectedAddOn[]>([]);
 
-const handleAddToBasket = () => {
-  if (!props.item) return;
-  addToBasket(props.item, itemQuantity.value, selectedAddOns.value);
-};
+const isEditing = computed(() => {
+  return !!props.defaultValues;
+});
 
 const availableOptions = computed(() => {
-  const addOnCategories = props.item?.addOnCategories;
-
-  if (!addOnCategories) {
+  if (!props.item?.addOnCategories) {
     return [];
   }
 
   return foodOptions.filter((option) =>
-    addOnCategories.includes(option.category),
+    props.item!.addOnCategories!.includes(option.category),
   );
 });
 
 const addOnsTotal = computed(() => {
-  return selectedAddOns.value.reduce((total, selected) => {
-    return total + selected.addOn.price * selected.quantity;
-  }, 0);
-});
-
-const subtotal = computed(() => {
-  if (!props.item) return 0;
-  return props.item.price + addOnsTotal.value;
+  return selectedAddOns.value.reduce(
+    (total, selected) => total + selected.addOn.price * selected.quantity,
+    0,
+  );
 });
 
 const totalAmount = computed(() => {
-  return subtotal.value * itemQuantity.value;
+  if (!props.item) {
+    return 0;
+  }
+
+  return (props.item.price + addOnsTotal.value) * itemQuantity.value;
 });
 
 const initializeDefaultAddOns = () => {
@@ -160,16 +165,14 @@ const initializeDefaultAddOns = () => {
     }
 
     for (const defaultAddOnId of option.defaultAddOnIds) {
-      const defaultAddOn = option.addOns.find(
-        (addOn) => addOn.id === defaultAddOnId,
-      );
+      const addOn = option.addOns.find((addOn) => addOn.id === defaultAddOnId);
 
-      if (!defaultAddOn) {
+      if (!addOn) {
         continue;
       }
 
       defaults.push({
-        addOn: defaultAddOn,
+        addOn,
         quantity: 1,
       });
     }
@@ -177,6 +180,31 @@ const initializeDefaultAddOns = () => {
 
   selectedAddOns.value = defaults;
 };
+
+const populateDialog = () => {
+  if (props.defaultValues) {
+    itemQuantity.value = props.defaultValues.quantity;
+
+    selectedAddOns.value = props.defaultValues.selectedAddOns.map(
+      (selectedAddOn) => ({
+        addOn: selectedAddOn.addOn,
+        quantity: selectedAddOn.quantity,
+      }),
+    );
+
+    return;
+  }
+  itemQuantity.value = 1;
+  initializeDefaultAddOns();
+};
+
+watch([() => props.isOpen, () => props.defaultValues], ([isOpen]) => {
+  if (isOpen) {
+    populateDialog();
+  } else {
+    resetCustomization();
+  }
+});
 
 const updateSelectedAddOns = (
   addOn: AddOn,
@@ -206,10 +234,12 @@ const updateSelectedAddOns = (
           (optionAddOn) => optionAddOn.id === selected.addOn.id,
         ),
     );
+
     selectedAddOns.value.push({
       addOn,
       quantity: 1,
     });
+
     return;
   }
 
@@ -217,6 +247,7 @@ const updateSelectedAddOns = (
     const alreadySelected = selectedAddOns.value.some(
       (selected) => selected.addOn.id === addOn.id,
     );
+
     if (alreadySelected) {
       return;
     }
@@ -256,17 +287,35 @@ const updateSelectedAddOns = (
 };
 
 const resetCustomization = () => {
-  selectedAddOns.value = [];
   itemQuantity.value = 1;
+  selectedAddOns.value = [];
+};
+
+const handleSubmit = () => {
+  if (!props.item) {
+    return;
+  }
+
+  if (props.defaultValues) {
+    basketStore.updateBasketItem(
+      props.defaultValues.id,
+      itemQuantity.value,
+      selectedAddOns.value,
+    );
+    closeFoodAndOpenBasket();
+  } else {
+    basketStore.addToBasket(
+      props.item,
+      itemQuantity.value,
+      selectedAddOns.value,
+    );
+  }
+
+  emit("update:isOpen", false);
+  resetCustomization();
 };
 
 const onChangeOpen = (isOpen: boolean) => {
-  if (isOpen) {
-    initializeDefaultAddOns();
-  } else {
-    resetCustomization();
-  }
-
   emit("update:isOpen", isOpen);
 };
 </script>
