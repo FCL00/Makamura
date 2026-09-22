@@ -170,6 +170,7 @@ const {
   isBasketOpen,
   closeBasket,
   openFoodForEdit,
+  openCheckout,
 } = useModal();
 
 const handleEdit = (basketItem: BasketItem) => {
@@ -183,6 +184,6 @@ const handleOpenChange = (isOpen: boolean) => {
 };
 
 const onProceedCheckout = () => {
-  closeBasket();
+  openCheckout();
 };
 </script>
