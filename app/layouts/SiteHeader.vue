@@ -26,10 +26,11 @@
       <!-- Desktop basket -->
       <div class="hidden md:block">
         <Button
-          class="rounded-full bg-charcoal px-5 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
+          class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
           @click="openBasket"
         >
-          Orders
+          <IconShoppingBasket/>
+          <span>Open Basket</span>
         </Button>
       </div>
 
@@ -79,18 +80,22 @@
           class="mt-2 rounded-full bg-charcoal px-5 py-2.5 text-center text-sm font-semibold text-cream"
           @click="handleMobileBasket"
         >
-          Orders
+          Basket
         </Button>
       </nav>
     </div>
 
     <!-- Basket -->
     <BasketDialogBox />
+    <CheckoutDialogBox />
+    <OrderDialogBox />
   </header>
 </template>
 
 <script setup lang="ts">
 import BasketDialogBox from "~/components/Basket/DiaglogBox.vue";
+import CheckoutDialogBox from '~/components/Checkout/DialogBox.vue';
+import OrderDialogBox from '~/components/Order/DialogBox.vue';
 import { Button } from "~/components/ui/button";
 
 const isOpen = ref(false);
