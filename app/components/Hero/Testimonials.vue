@@ -42,7 +42,7 @@
               class="flex min-h-64 h-full flex-col justify-between rounded-2xl border border-line bg-white p-7"
             >
               <blockquote
-                class="font-display text-xl font-medium leading-snug text-charcoal"
+                class="font-display text-2xl lg:text-xl font-medium leading-snug text-charcoal"
               >
                 “{{ review.comment }}”
               </blockquote>
