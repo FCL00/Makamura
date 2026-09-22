@@ -6,26 +6,51 @@
       v-model:popularOnly="popularOnly"
       :categories="categories"
     />
-    <FoodMenuGrid :items="filteredItems" :query="query" @add="openFoodDialog" />
+
+    <FoodMenuGrid
+      :items="filteredItems"
+      :query="query"
+      @add="handleAdd"
+    />
+
     <FoodDialogBox
-      :item="selectedItem"
-      :isOpen="isDialogOpen"
-      @update:isOpen="isDialogOpen = $event"
+      :item="editingBasketItem?.item ?? selectedItem"
+      :is-open="isFoodOpen"
+      :default-values="editingBasketItem"
+      @update:is-open="handleFoodDialog"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { categories, menuItems, heatLevels } from "~/data/menu.js";
+import { categories } from "~/data/menu";
 
-const { 
-  query, 
-  activeCategory, 
-  popularOnly, 
-  filteredItems, 
+const {
+  query,
+  activeCategory,
+  popularOnly,
+  filteredItems,
   selectedItem,
-  isDialogOpen,
   openFoodDialog,
 } = useFoodMenu();
 
+const {
+  isFoodOpen,
+  editingBasketItem,
+  openFood,
+  closeFoodForEdit,
+} = useModal();
+
+const handleAdd = (itemId: string) => {
+  openFoodDialog(itemId);
+  openFood();
+};
+
+const handleFoodDialog = (isOpen: boolean) => {
+  if (isOpen) {
+    return;
+  }
+
+  closeFoodForEdit();
+};
 </script>
