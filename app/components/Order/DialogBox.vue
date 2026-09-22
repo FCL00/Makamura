@@ -11,7 +11,9 @@
             <DialogDescription>
               Order #{{ orderStore.currentOrder?.id }}
             </DialogDescription>
-            <div class="rounded-sm bg-peach px-3 py-1 text-xs font-semibold w-fit">
+            <div
+              class="rounded-sm bg-peach px-3 py-1 text-xs font-semibold w-fit"
+            >
               {{ statusLabel }}
             </div>
           </div>
@@ -108,52 +110,49 @@
             <div class="mb-4">
               <h2 class="font-semibold">Order status</h2>
             </div>
-
-            <div class="space-y-5">
-              <div
-                v-for="step in statusSteps"
-                :key="step.status"
-                class="flex gap-3"
-              >
-                <div class="flex flex-col items-center">
-                  <div
-                    class="flex size-7 shrink-0 items-center justify-center rounded-full border"
-                    :class="
-                      isStatusComplete(step.status)
-                        ? 'border-herb bg-herb text-white'
-                        : 'border-line bg-cream text-stone'
-                    "
-                  >
-                    <IconCheck
-                      v-if="isStatusComplete(step.status)"
-                      class="size-4"
-                    />
-
-                    <span v-else class="size-2 rounded-full bg-stone" />
-                  </div>
-
-                  <div
-                    v-if="step.status !== 'DELIVERED'"
-                    class="mt-1 h-8 w-px bg-line"
+            <div
+              v-for="step in statusSteps"
+              :key="step.status"
+              class="flex gap-3"
+            >
+              <div class="flex flex-col items-center">
+                <div
+                  class="flex size-7 shrink-0 items-center justify-center rounded-full border"
+                  :class="
+                    isStatusComplete(step.status)
+                      ? 'border-herb bg-herb text-white'
+                      : 'border-line bg-cream text-stone'
+                  "
+                >
+                  <IconCheck
+                    v-if="isStatusComplete(step.status)"
+                    class="size-4"
                   />
+
+                  <span v-else class="size-2 rounded-full bg-stone" />
                 </div>
 
-                <div>
-                  <p
-                    class="text-sm font-semibold"
-                    :class="
-                      isStatusComplete(step.status)
-                        ? 'text-charcoal'
-                        : 'text-stone'
-                    "
-                  >
-                    {{ step.label }}
-                  </p>
+                <div
+                  v-if="step.status !== 'DELIVERED'"
+                  class="mt-1 h-8 w-px bg-line"
+                />
+              </div>
 
-                  <p class="text-xs text-stone">
-                    {{ step.description }}
-                  </p>
-                </div>
+              <div>
+                <p
+                  class="text-sm font-semibold"
+                  :class="
+                    isStatusComplete(step.status)
+                      ? 'text-charcoal'
+                      : 'text-stone'
+                  "
+                >
+                  {{ step.label }}
+                </p>
+
+                <p class="text-xs text-stone">
+                  {{ step.description }}
+                </p>
               </div>
             </div>
           </section>
